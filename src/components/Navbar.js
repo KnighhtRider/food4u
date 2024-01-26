@@ -10,6 +10,7 @@ import Cart from '../screens/Cart';
 
 export default function Navbar(props) {
   const [cartView, setCartView] = useState(false);
+  const [navbarExpanded, setNavbarExpanded] = useState(false);
   localStorage.setItem('temp', 'first');
   let navigate = useNavigate();
 
@@ -20,6 +21,10 @@ export default function Navbar(props) {
 
   const loadCart = () => {
     setCartView(true);
+  };
+
+  const toggleNavbar = () => {
+    setNavbarExpanded(!navbarExpanded);
   };
 
   const items = useCart();
@@ -35,17 +40,18 @@ export default function Navbar(props) {
             Food4u
           </Link>
           <button
-            className="navbar-toggler"
+            className={`navbar-toggler ${navbarExpanded ? 'collapsed' : ''}`}
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent"
-            aria-expanded="false"
+            aria-expanded={navbarExpanded ? 'true' : 'false'}
             aria-label="Toggle navigation"
+            onClick={toggleNavbar}
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <div className={`collapse navbar-collapse ${navbarExpanded ? 'show' : ''}`} id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <Link className="nav-link fs-5 mx-3 active" aria-current="page" to="/">
