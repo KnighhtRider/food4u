@@ -32,6 +32,10 @@ export default function Home() {
     fetchData();
   }, []);
 
+  if (!foodCat || !foodItems) {
+    return null; // or handle the case when foodCat or foodItems is null
+  }
+
   return (
     <div >
       <div>
@@ -72,6 +76,9 @@ export default function Home() {
         {
           foodCat !== []
             ? foodCat.map((data) => {
+              if (!data) {
+                return null; // or handle the case when data is null
+              }
               return (
                 // justify-content-center
                 <div className='row mb-3'>
@@ -92,7 +99,7 @@ export default function Home() {
                 </div> 
               )
             })
-            : ""}
+            : "Loading or No Data"}
       </div>
       <Footer />
     </div>
