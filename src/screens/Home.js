@@ -1,29 +1,36 @@
-import React, { useEffect, useState } from 'react'
-import Card from '../components/Card'
-// import Carousel from '../components/Carousel'
-import Footer from '../components/Footer'
-import Navbar from '../components/Navbar'
-export default function Home() {
-  const [foodCat, setFoodCat] = useState([])
-  const [foodItems, setFoodItems] = useState([])
-  const [search, setSearch] = useState('')
-  const loadFoodItems = async () => {
-    let response = await fetch("https://food4u-apii.vercel.app/api/foodData", {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      }
+import React, { useEffect, useState } from 'react';
+import Card from '../components/Card';
+import Footer from '../components/Footer';
+import Navbar from '../components/Navbar';
 
-    });
-    response = await response.json()
-    // console.log(response[1][0].CategoryName)
-    setFoodItems(response[0])
-    setFoodCat(response[1])
+export default function Home() {
+  const [foodCat, setFoodCat] = useState([]);
+  const [foodItems, setFoodItems] = useState([]);
+  const [search, setSearch] = useState('');
+
+  const loadFoodItems = async () => {
+    try {
+      let response = await fetch("https://food4u-apii.vercel.app/api/foodData", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      response = await response.json();
+      console.log(response); // Check the format of the data
+      setFoodItems(response[0]);
+      setFoodCat(response[1]);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   }
 
   useEffect(() => {
-    loadFoodItems()
-  }, [])
+    const fetchData = async () => {
+      await loadFoodItems();
+    }
+    fetchData();
+  }, []);
 
   return (
     <div >
