@@ -7,7 +7,7 @@ const cors = require("cors");
 mongodb();
 
 app.use(cors({
-  origin: [""],
+  origin: ["https://food4u-z.vercel.app"],
   methods: ["POST", "GET"],
   credentials: true
 }))
