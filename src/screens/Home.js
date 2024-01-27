@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from 'axios';
 import Card from "../components/Card";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
@@ -10,19 +11,15 @@ export default function Home() {
 
   const loadFoodItems = async () => {
     try {
-      let response = await fetch(
-        "https://food4u-apii.vercel.app/api/foodData",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      response = await response.json();
-      console.log(response); 
-      setFoodItems(response[0]);
-      setFoodCat(response[1]);
+      const response = await axios.get("https://food4u-apii.vercel.app/api/foodData", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+  
+      console.log(response.data);
+      setFoodItems(response.data[0]);
+      setFoodCat(response.data[1]);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
