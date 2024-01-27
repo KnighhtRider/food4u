@@ -3,13 +3,13 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Badge from '@mui/material/Badge';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'; 
 import { useCart } from './ContextReducer';
 import Modal from '../Modal';
 import Cart from '../screens/Cart';
 
 export default function Navbar(props) {
-  const [cartView, setCartView] = useState(false);
+  const [cartView, setCartView] = useState(false); 
   localStorage.setItem('temp', 'first');
   let navigate = useNavigate();
 
