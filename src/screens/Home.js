@@ -20,7 +20,7 @@ export default function Home() {
         }
       );
       response = await response.json();
-      console.log(response); // Check the format of the data
+      console.log(response); 
       setFoodItems(response[0]);
       setFoodCat(response[1]);
     } catch (error) {
@@ -34,10 +34,6 @@ export default function Home() {
     };
     fetchData();
   }, []);
-
-  if (!foodCat || !foodItems) {
-    return null; // or handle the case when foodCat or foodItems is null
-  }
 
   return (
     <div>
@@ -101,7 +97,7 @@ export default function Home() {
             </div>
           </div>
           <button
-            className="carousel-control-prev"
+            className="carousel-control-prev" 
             type="button"
             data-bs-target="#carouselExampleFade"
             data-bs-slide="prev"
@@ -128,13 +124,8 @@ export default function Home() {
       </div>
       {/* Card */}
       <div className="container">
-        {" "}
-        {/* boootstrap is mobile first */}
         {foodCat !== []
           ? foodCat.map((data) => {
-              if (!data) {
-                return null; // or handle the case when data is null
-              }
               return (
                 // justify-content-center
                 <div className="row mb-3">
