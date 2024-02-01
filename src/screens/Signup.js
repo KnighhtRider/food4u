@@ -17,7 +17,7 @@ function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(JSON.stringify({name:credentials.name, email:credentials.email, password:credentials.password,location:credentials.geolocation}))
-    const response = await fetch("https://food4u-api-z22i.onrender.com/api/createuser", {
+    const response = await fetch("https://food4u-api-q7da.onrender.com/api/createuser", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -11,7 +11,7 @@ export default function Home() {
 
   const loadFoodItems = async () => {
     try {
-      const response = await axios.get("https://food4u-api-z22i.onrender.com/api/foodData", {
+      const response = await axios.get("https://food4u-api-q7da.onrender.com/api/foodData", {
         headers: {
           "Content-Type": "application/json",
         },
