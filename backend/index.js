@@ -8,7 +8,11 @@ const PORT = process.env.PORT || 5000;
 
 mongodb();
 
-app.use(cors())
+app.use(cors({
+  origin: [""],
+  methods: ["POST", "GET"],
+  credentials: true
+}))
 
 app.use(express.json());
 app.use("/api", require("./Routes/createUser"));
