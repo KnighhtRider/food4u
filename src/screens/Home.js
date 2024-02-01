@@ -1,22 +1,27 @@
 import React, { useEffect, useState } from "react";
 import Card from "../components/Card";
-// import Carousel from '../components/Carousel'
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
+import axios from "axios";
+
 export default function Home() {
   const [foodCat, setFoodCat] = useState([]);
   const [foodItems, setFoodItems] = useState([]);
   const [search, setSearch] = useState("");
+
   const loadFoodItems = async () => {
-    let response = await fetch("https://food4u-api-z22i.onrender.com/api/foodData", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    response = await response.json();
-    setFoodItems(response[0]);
-    setFoodCat(response[1]);
+    try {
+      const response = await axios.get("http://localhost:5000/api/foodData", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const { food_items, food_category } = response.data;
+      setFoodItems(food_items);
+      setFoodCat(food_category);
+    } catch (error) {
+      console.error("Error fetching data:", error.message);
+    }
   };
 
   useEffect(() => {
@@ -130,7 +135,7 @@ export default function Home() {
                         "-webkit-linear-gradient(left,rgb(0, 255, 137),rgb(0, 0, 0))",
                     }}
                   />
-                  {foodItems  ? (
+                  {foodItems ? (
                     foodItems
                       .filter(
                         (items) =>
