@@ -1,8 +1,9 @@
 const express = require("express");
 const app = express();
-const port = 5000;
 const mongodb = require("./db");
 const cors = require("cors");
+
+const PORT = process.env.PORT || 5000;
 
 mongodb();
 
@@ -15,9 +16,9 @@ app.use("/api", require("./Routes/DisplayData"));
 app.use("/api", require("./Routes/OrderData"));
 
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.send("Hello API!");
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`Example app listening on port ${PORT}`);
 });
