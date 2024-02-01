@@ -1,15 +1,25 @@
 {
-   "version": 2,
-   "builds": [
-     {
-       "src": "*.js",
-       "use": "@vercel/node"
-     }
-   ],
-   "routes": [
-     {
-       "src": "/(.*)",
-       "dest": "/"
-     }
-   ]
- }
+  "version": 2,
+  "builds": [
+    {
+      "src": "*.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/foodData",
+      "dest": "/api/foodData",
+      "methods": ["GET", "POST", "OPTIONS"],
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization"
+      }
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/"
+    }
+  ]
+}
