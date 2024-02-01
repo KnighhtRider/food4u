@@ -1,26 +1,38 @@
 const mongoose = require("mongoose");
-const mongoURI = "mongodb+srv://food4u:vivek1234@cluster0.g2agcgn.mongodb.net/food4u?retryWrites=true&w=majority";
+const mongoURL =
+  "mongodb+srv://food4u:vivek1234@cluster0.g2agcgn.mongodb.net/food4u?retryWrites=true&w=majority";
 
-const mongodb = async () => {
-  try {
-    await mongoose.connect(mongoURI, { useNewUrlParser: true });
-    console.log("connected");
-    const fetched_data = await mongoose.connection.db.collection("food_items");
-    fetched_data.find({}).toArray(async (err, data) => {
-      const foodCategory = await mongoose.connection.db.collection("food_category");
-      foodCategory.find({}).toArray(async function(err, catData){
-          if (err) {
-              console.log(err)
-          }
-          else {
+const mongoDB = () => {
+  mongoose
+    .connect(mongoURL)
+    .then(() => {
+      console.log("Connected Successfully");
+      const fetched_data = mongoose.connection.db.collection("food_items");
+      fetched_data
+        .find({})
+        .toArray()
+        .then((data) => {
+          const food_category =
+            mongoose.connection.db.collection("food_category");
+          food_category
+            .find({})
+            .toArray()
+            .then((catData) => {
               global.food_items = data;
-              global.foodCategory = catData;
-          };
-      })
+              global.food_category = catData;
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+          // console.log(global.food_items);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    })
+    .catch((err) => {
+      console.log(err);
     });
-  } catch (err) {
-    console.log(err);
-  }
 };
 
-module.exports = mongodb;
+module.exports = mongoDB;

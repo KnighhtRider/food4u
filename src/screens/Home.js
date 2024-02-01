@@ -1,35 +1,29 @@
 import React, { useEffect, useState } from "react";
-import axios from 'axios';
 import Card from "../components/Card";
+// import Carousel from '../components/Carousel'
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-
 export default function Home() {
   const [foodCat, setFoodCat] = useState([]);
   const [foodItems, setFoodItems] = useState([]);
   const [search, setSearch] = useState("");
-
   const loadFoodItems = async () => {
-    try {
-      const response = await axios.get("https://food4u-apii.vercel.app/api/foodData", {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-  
-      console.log(response.data);
-      setFoodItems(response.data[0]);
-      setFoodCat(response.data[1]);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
+    let response = await fetch("http://localhost:5000/api/foodData", {
+      // credentials: 'include',
+      // Origin:"http://localhost:3000/login",
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    response = await response.json();
+    // console.log(response[1][0].CategoryName)
+    setFoodItems(response[0]);
+    setFoodCat(response[1]);
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      await loadFoodItems();
-    };
-    fetchData();
+    loadFoodItems();
   }, []);
 
   return (
@@ -94,7 +88,7 @@ export default function Home() {
             </div>
           </div>
           <button
-            className="carousel-control-prev" 
+            className="carousel-control-prev"
             type="button"
             data-bs-target="#carouselExampleFade"
             data-bs-slide="prev"
@@ -121,11 +115,13 @@ export default function Home() {
       </div>
       {/* Card */}
       <div className="container">
-        {foodCat !== []
+        {" "}
+        {/* boootstrap is mobile first */}
+        {foodCat
           ? foodCat.map((data) => {
               return (
                 // justify-content-center
-                <div className="row mb-3">
+                <div className="row mb-3" key={data.id}>
                   <div key={data.id} className="fs-3 m-3">
                     {data.CategoryName}
                   </div>
@@ -137,7 +133,7 @@ export default function Home() {
                         "-webkit-linear-gradient(left,rgb(0, 255, 137),rgb(0, 0, 0))",
                     }}
                   />
-                  {foodItems !== [] ? (
+                  {foodItems  ? (
                     foodItems
                       .filter(
                         (items) =>
@@ -152,7 +148,6 @@ export default function Home() {
                             key={filterItems.id}
                             className="col-12 col-md-6 col-lg-3 mt-2"
                           >
-                            {console.log(filterItems.url)}
                             <Card
                               foodName={filterItems.name}
                               item={filterItems}
@@ -168,7 +163,7 @@ export default function Home() {
                 </div>
               );
             })
-          : "Loading or No Data"}
+          : ""}
       </div>
       <Footer />
     </div>

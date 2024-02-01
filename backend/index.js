@@ -6,17 +6,13 @@ const cors = require("cors");
 
 mongodb();
 
-app.use(cors({
-  origin: ["https://food4u-z.vercel.app"],
-  methods: ["POST", "GET"],
-  credentials: true
-}))
+app.use(cors())
 
-
-app.use(express.json())
-app.use('/api', require('./Routes/createUser')) 
-app.use('/api', require('./Routes/DisplayData')) 
-app.use('/api', require('./Routes/OrderData'))
+app.use(cors()); // Use this after the variable declaration
+app.use(express.json());
+app.use("/api", require("./Routes/CreateUser"));
+app.use("/api", require("./Routes/DisplayData"));
+app.use("/api", require("./Routes/OrderData"));
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
