@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 5000;
 mongodb();
 
 app.use(cors({
-  origin: [""],
+  origin: ["https://food4u-phi.vercel.app"],
   methods: ["POST", "GET"],
   credentials: true
 }))
