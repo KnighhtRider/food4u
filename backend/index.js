@@ -8,11 +8,7 @@ const PORT = process.env.PORT || 5000;
 
 mongodb();
 
-app.use(cors({
-  origin: ["https://food4u-phi.vercel.app"],
-  methods: ["POST", "GET"],
-  credentials: true
-}))
+app.use(cors())
 
 app.use(express.json());
 app.use("/api", require("./Routes/createUser"));
